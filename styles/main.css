@@ -1,0 +1,266 @@
+:root {
+	--accent-color: #800000;
+	--gradient-color: #f6bb73;
+	--light_menu: white;
+	--mid_menu: antiquewhite;
+	--dark_menu: black;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: calc(15px + .2vw);
+	width: min(80%, 1024px);
+	line-height: 1.5;
+	margin: auto;
+	border: 2px solid var(--accent-color);
+}
+h1, h2, h3, p, ul {
+	padding: .25em 0;
+}
+a:hover, a:focus{
+	font-style: italic;
+	color: var(--accent-color);
+}
+h1 {
+	font-size: 150%;
+}
+h2 {
+	font-size: 130%;
+	color: var(--accent-color);
+}
+h3 {
+	font-size: 105%;
+}
+ul {
+	margin-left: 2em;
+}
+
+header {
+	line-height: 1.2;
+	border-bottom: 2px solid var(--accent-color);
+	text-align: center;
+	background-image: linear-gradient(
+	    30deg, var(--gradient-color) 0%, white 30%, white 65%, var(--gradient-color) 100%);
+	& h2 {
+		font-size: 175%;
+		padding: .5em 0 0 0;
+	}
+	& h3 {
+		font-size: 130%;
+		font-style: italic;
+		padding-bottom: 1em;
+	}
+	& img {
+		display: none;
+	}
+}
+
+main {
+	display: flex;
+	padding: 0 1em 1em;
+	flex-direction: column-reverse;
+	& blockquote {
+		font-style: italic;
+		padding-left: 1em;
+	}
+	& h3 + img {
+		width: clamp(40px, 50%, 75px);
+		border: 4px double var(--accent-color);
+		border-radius: 10px;
+	}
+}
+
+section {
+	padding-left: .5em;
+	border-bottom: 2px solid var(--accent-color);
+	& img {
+		width: clamp(100px, 50%, 250px);
+		float: right;
+		margin: 0 1em .25em;
+	}
+}
+
+aside {
+	padding-right: .5em;
+}
+
+footer {
+	background-color: var(--accent-color);
+	& p {
+		text-align: center;
+		color: white;
+		padding: 1em 0;
+	}
+}
+
+.featured {
+	border-top: 2px solid var(--accent-color);
+	border-bottom: 2px solid var(--accent-color);
+	padding: .5em 0 1em;
+}
+.speaker {
+	& h1 {
+		color: var(--accent-color);
+	}
+	& h2 {
+		color: black;
+	}
+	& p {
+		padding: .5em 0; 
+	}	
+}
+.large {
+	font-size: 125%;
+}
+
+.menu {
+	position: absolute;
+	left: 0;
+	background-color: var(--accent-color);
+	width: 40%;
+	display: none;
+	flex-direction: column;
+}
+
+.navbar {
+	clear: left;
+	background-color: var(--accent-color);
+	position: relative;
+	& a {
+		display: block;
+		padding: 1em;
+		text-decoration: none;
+		margin: 0 2px 2px 0;
+	}
+	& a:link, a:visited { 
+		color: var(--light_menu);
+	}
+	& a:hover, a:focus, a.current {
+		background-color: var(--mid_menu);
+		color: var(--dark_menu);
+	}
+	& ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+}
+
+.submenu {
+	position: relative;
+	& small::after {
+		content: "\25BA";
+	}
+	& li a {
+		margin: 2px;
+	}
+}
+
+.dropdown {
+	position: absolute;
+	top: 0;
+	left: 100%;
+	width: 100%;
+	background-color: var(--accent-color);
+	color: var(--light_menu);
+	display: none;
+	& > li a { margin: 0 2px 2px; }
+}
+
+.submenu:hover > .dropdown {
+	display: block;
+}
+
+.menu-btn {
+	display: block;
+	cursor: pointer;
+	color: white;
+	font-size: 1.0em;
+}
+
+.menu-btn::before {
+	content: "\2630";
+}
+
+#menu-toggle:checked + .menu-btn::before {
+	content: "\2715";
+}
+
+#menu-toggle:checked + .menu-btn + .menu {
+	display: flex;
+}
+
+#menu-toggle {
+	display: none;
+}
+
+@media screen and (min-width: 369px){
+	header {
+		text-align: left;
+		& img {
+			display: block;
+			width: clamp(40px, 15%, 80px);
+			float: left;
+			margin: .75em 1em;
+		}
+	}
+}
+
+@media screen and (min-width: 768px){
+	.menu {
+		display: flex;
+		flex-direction: row;
+		position: relative;
+		width: 100%;
+		& li { 
+			flex-basis: 20%; 
+			text-align: center;
+		}
+	}
+	.menu-btn {
+		display: none;
+	}
+	.submenu {
+		position: relative;
+		& small::after {
+			content: "\25BC";
+		}
+	}
+	.dropdown {
+		position: absolute;
+		top: auto;
+		left: 0;
+		right: 0;
+		width: auto;
+		display: none;
+	}
+	.submenu:hover > .dropdown {
+		display: block;
+	}
+	.menu > li:first-child a { margin-left: 0; }
+	.menu > li:last-child a { margin-right: 0; }
+	.navbar {
+		& a {
+			margin: 0 1px 2px;
+		}
+	}
+}
+
+@media screen and (min-width: 903px){
+	main {
+		flex-direction: row;
+	}
+	section {
+		flex-basis: 75%;
+		border-bottom: none;
+	}
+	aside {
+		flex-basis: 25%;
+	}
+}
